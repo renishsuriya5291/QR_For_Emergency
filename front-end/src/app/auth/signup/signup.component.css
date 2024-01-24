@@ -1,0 +1,17 @@
+/* styles.css (or your component-specific stylesheet) */
+
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .example-form {
+    width: 300px; /* Adjust the width as needed */
+  }
+  
+
+.example-full-width{
+  width: 100%;
+}
