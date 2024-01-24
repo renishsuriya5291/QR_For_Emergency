@@ -5,6 +5,10 @@ const port = 65535
 // Import the router
 const router = require('./router');
 
+// Middleware to parse JSON and URL-encoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Use the router for a specific path
 app.use('/api', router);
 
