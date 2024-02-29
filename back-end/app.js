@@ -5,7 +5,7 @@ import logger from 'morgan';
 import "dotenv/config";
 
 import indexRouter from './routes/index.js';
-import apiV0 from './routes/api/v0.js';
+import apiV0 from './routes/api/v0/v0.js';
 
 export const app = express();
 
@@ -23,12 +23,12 @@ app.use('/', indexRouter);
 app.use('/api/v0', apiV0);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

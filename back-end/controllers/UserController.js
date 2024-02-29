@@ -1,5 +1,5 @@
 import mysql from 'mysql2';
-import { connection } from '../db.config.js';
+import connection from '../db.config.js';
 
 class UserController {
 
