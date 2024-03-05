@@ -3,9 +3,9 @@ import UserController from '../../../controllers/UserController.js';
 
 const router = express.Router();
 
-router.route('/')
-    .get(UserController.index)
-    .post(UserController.store);
+// router.route('/')
+//     .get(UserController.index)
+//     .post(UserController.store);
 
 router.route('/:id')
     .get(UserController.show)

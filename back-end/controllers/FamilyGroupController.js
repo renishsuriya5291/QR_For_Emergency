@@ -1,11 +1,33 @@
 import mysql from 'mysql2';
 import connection from '../db.config.js';
 
-class UserController {
+class FamilyGroupController {
 
   index(req, res, next) { }
 
-  store(req, res, next) { }
+  store(req, res, next) {
+    try {
+      const conn = mysql.createConnection(connection);
+
+      let { name, user_id} = req.body;
+
+      let sql = "INSERT family_group(name, group_created_by) VALUES(?, ?)";
+      let values = [name, user_id];
+      conn.execute(sql, values, (error, rows, fields) => {
+        if (error) {
+          res.status(500).send({ "error": { "message": error } });
+          return;
+        } else {
+          res.status(200).json({ "data": rows[0] });
+        }
+        conn.end();
+      });
+
+    } catch (error) {
+      res.status(500).send({ "error": { "message": error } });
+      return;
+    }
+  }
 
   show(req, res, next) {
     try {
@@ -70,4 +92,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new FamilyGroupController();

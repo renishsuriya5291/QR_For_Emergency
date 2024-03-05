@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const schema = Joi.object({
     ipAddress: Joi.string().required().messages({
-        'any.required': 'ip address is required.'
+        'any.required': 'IP address is required.'
     }),
     userAgent: Joi.string().required().messages({
         'any.required': 'User agent is required.'

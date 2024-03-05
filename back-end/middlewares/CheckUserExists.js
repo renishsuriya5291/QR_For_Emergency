@@ -8,8 +8,9 @@ export default function checkUserExists(req, res, next) {
         const conn = mysql.createConnection(connection);
 
         // First, check if the user exists.
-        const sql = 'SELECT id, count(*) AS row_count FROM users WHERE uid = ?';
-        conn.execute(sql, [uid], (error, results) => {
+        let sql = 'SELECT id, count(*) AS row_count FROM users WHERE uid = ?';
+        let values = [uid];
+        conn.execute(sql, values, (error, results) => {
             if (error) {
                 res.status(500).send({ "error": { "message": err.message } });
 
@@ -20,7 +21,7 @@ export default function checkUserExists(req, res, next) {
 
                 // Add user's id in req object
             } else {
-                req.body.id = results[0].id;
+                req.body.user_id = results[0].id;
                 next();
             }
             conn.end();
