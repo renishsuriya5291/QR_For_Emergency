@@ -5,9 +5,10 @@ export default function validateSignoutRequest(req, res, next) {
     try {
         // Validate the request body.
         const { error } = signoutRequestSchema.validate(req.body);
+        
         if (error) {
             let errorMessage = error.details[0].message;
-            res.status(400).send({ "error": { "message": errorMessage } });
+            res.status(400).send({ "error1": { "message": errorMessage } });
         } else {
             next();
         }

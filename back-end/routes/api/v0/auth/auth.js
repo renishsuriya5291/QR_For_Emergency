@@ -4,7 +4,7 @@ import validateSignupRequest from '../../../../middlewares/ValidateSignupRequest
 import validateSigninRequest from '../../../../middlewares/ValidateSigninRequest.js';
 import checkEmailExists from '../../../../middlewares/CheckEmailExists.js';
 import checkUserExists from '../../../../middlewares/CheckUserExists.js';
-import verifyToken from '../../../../services/VerifyToken.js';
+import verifyToken from '../../../../middlewares/VerifyToken.js';
 import checkUserIsAuthentic from '../../../../middlewares/CheckUserIsAuthentic.js';
 import validateSignoutRequest from '../../../../middlewares/ValidateSignoutRequest.js';
 

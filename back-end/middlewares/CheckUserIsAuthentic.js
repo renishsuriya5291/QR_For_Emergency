@@ -10,30 +10,32 @@ export default function checkUserIsAuthentic(req, res, next) {
         let sesId = decipher.update(data, 'hex', 'utf8');
         sesId += decipher.final('utf8');
 
-        const conn = mysql.createConnection(connection);
-
         // First check if the user is already logged in
         let sql = 'SELECT user_id, is_logout, count(*) AS row_count FROM user_signin_logs WHERE session_id = ?';
         let values = [sesId];
+
+        const conn = mysql.createConnection(connection);
+
         conn.execute(sql, values, (error, results) => {
             if (error) {
                 res.status(500).send({ "error": { "message": error.message } });
 
             } else if (results[0].row_count == 0) {
-                res.status(404).send({ "error": { "message": "User not found" } });
+                res.status(404).send({ "error": { "message": "User not found." } });
 
             } else if (results[0].is_logout == 1) {
-                res.status(401).send({ "error": { "message": "User logout" } });
+                res.status(400).send({ "error": { "message": "User was logout." } });
 
             } else {
                 // update the user's last login date
-                let sql = 'UPDATE user_signin_logs SET last_request_time = ?, updated_at = ? WHERE user_id = ?';
-                let values = [new Date(), new Date(), results[0].user_id];
+                let sql = 'UPDATE user_signin_logs SET updated_at = ? WHERE user_id = ?';
+                let values = [new Date(), results[0].user_id];
+                
                 conn.execute(sql, values, (error) => {
                     if (error) {
                         res.status(500).send({ "error": { "message": error.message } });
                     } else {
-                        req.body.user_id = results[0].user_id;
+                        req.body.userId = results[0].user_id;
                         next();
                     }
                 });

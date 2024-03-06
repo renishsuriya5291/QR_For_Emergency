@@ -6,18 +6,19 @@ class AuthController {
 
     signup(req, res) {
         try {
-            const conn = mysql.createConnection(connection);
-
             const { email, uid, fullName } = req.body;
-
+            
             let sql = 'INSERT INTO users (email, uid, full_name) VALUES (?, ?, ?)';
             let values = [email, uid, fullName];
+
+            const conn = mysql.createConnection(connection);
+
             conn.execute(sql, values, (error) => {
                 if (error) {
                     res.status(500).send({ "error": { "message": error } });
                 } else {
                     // All done successfully and send the response.
-                    res.status(201).send('User created successfully');
+                    res.status(201).send({ "data": { "message": 'User created.' } });
                 }
                 conn.end();
             });
@@ -30,21 +31,21 @@ class AuthController {
 
     signin(req, res) {
         try {
+            // Generate token and put in response header.
+            generateToken(req, res);
+            
+            const { userId, ipAddress, userAgent, sesId } = req.body;
+            
+            let sql = 'INSERT INTO user_signin_logs (user_id, ip_address, user_agent, session_id) VALUES (?, ?, ?, ?)';
+            let values = [userId, ipAddress, userAgent, sesId];
 
             const conn = mysql.createConnection(connection);
 
-            // Generate token and put in response header.
-            generateToken(req, res);
-
-            const { user_id, ipAddress, userAgent, sesId } = req.body;
-
-            let sql = 'INSERT INTO user_signin_logs (user_id, ip_address, user_agent, session_id) VALUES (?, ?, ?, ?)';
-            let values = [user_id, ipAddress, userAgent, sesId];
             conn.execute(sql, values, (error) => {
                 if (error) {
                     res.status(500).send({ "error": { "message": error.message } });
                 } else {
-                    res.status(201).send('Signin log created successfully');
+                    res.status(201).send({ "data": { "message": 'Signin log created.' } });
                 }
                 conn.end();
             });
@@ -57,18 +58,18 @@ class AuthController {
 
     signout(req, res) {
         try {
+            const { userId } = req.body;
+            
+            let sql = 'UPDATE user_signin_logs SET is_logout = 1, updated_at = ? WHERE user_id = ? AND is_logout = 0';
+            let values = [new Date(), userId];
 
             const conn = mysql.createConnection(connection);
-
-            const { user_id } = req.body;
-
-            let sql = 'UPDATE user_signin_logs SET is_logout = 1, updated_at = ? WHERE user_id = ? AND is_logout = 0';
-            let values = [new Date(), user_id];
+            
             conn.execute(sql, values, (error) => {
                 if (error) {
                     res.status(500).send({ "error": { "message": error.message } });
                 } else {
-                    res.status(201).send('User signout successfully.');
+                    res.status(200).send({ "data": { "message": 'User logout.' } });
                 }
                 conn.end();
             });
@@ -79,9 +80,6 @@ class AuthController {
         }
     }
 
-    verify(req, res, next) {
-        res.status(200).send('Verified');
-    }
 }
 
 export default new AuthController();

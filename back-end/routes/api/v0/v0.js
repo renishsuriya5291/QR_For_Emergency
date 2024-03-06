@@ -1,9 +1,10 @@
 import express from 'express';
 import users from './Users.js';
 import auth from './auth/Auth.js';
-import verifyToken from '../../../services/VerifyToken.js';
+import verifyToken from '../../../middlewares/VerifyToken.js';
 import checkUserIsAuthentic from '../../../middlewares/CheckUserIsAuthentic.js';
 import familyGroup from './FamilyGroup.js';
+import checkUIDIsCorrect from '../../../middlewares/CheckUIDIsCorrect.js';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.use('/auth', auth);
-router.use('/users', [verifyToken, checkUserIsAuthentic], users);
-router.use('/family-group',[verifyToken, checkUserIsAuthentic], familyGroup);
+router.use('/user', [verifyToken, checkUserIsAuthentic], users);
+router.use('/user/:userId/family-group', [verifyToken, checkUserIsAuthentic, checkUIDIsCorrect], familyGroup);
 
 export default router;
