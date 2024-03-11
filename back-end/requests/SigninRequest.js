@@ -8,7 +8,7 @@ const schema = Joi.object({
         'any.required': 'User agent is required.'
     }),
     uid: Joi.string().required().messages({
-        'any.required': 'Uid is required.'
+        'any.required': 'UID is required.'
     }),
 });
 

@@ -1,11 +1,10 @@
-import signupRequestSchema from '../requests/SignupRequest.js';
+import updateGroupRequest from '../requests/UpdateGroupRequest.js';
 
-export default function validateSignupRequest(req, res, next) {
+export default function validateUpdateGroupRequest(req, res, next) {
 
     try {
         // Validate the request body.
-        const { error } = signupRequestSchema.validate(req.body);
-
+        const { error } = updateGroupRequest.validate(req.body);
         if (error) {
             let errorMessage = error.details[0].message;
             res.status(422).send({ "error": { "message": errorMessage } });

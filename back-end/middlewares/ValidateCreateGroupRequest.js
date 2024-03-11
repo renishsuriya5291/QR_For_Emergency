@@ -1,4 +1,4 @@
-import createGroupRequest from '../requests/CreateGroupRequest';
+import createGroupRequest from '../requests/CreateGroupRequest.js';
 
 export default function validateCreateGroupRequest(req, res, next) {
 
@@ -7,7 +7,7 @@ export default function validateCreateGroupRequest(req, res, next) {
         const { error } = createGroupRequest.validate(req.body);
         if (error) {
             let errorMessage = error.details[0].message;
-            res.status(400).send({ "error": { "message": errorMessage } });
+            res.status(422).send({ "error": { "message": errorMessage } });
         } else {
             next();
         }

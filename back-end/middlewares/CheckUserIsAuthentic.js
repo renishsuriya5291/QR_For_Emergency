@@ -21,7 +21,7 @@ export default function checkUserIsAuthentic(req, res, next) {
                 res.status(500).send({ "error": { "message": error.message } });
 
             } else if (results[0].row_count == 0) {
-                res.status(404).send({ "error": { "message": "User not found." } });
+                res.status(400).send({ "error": { "message": "Bad request for accessing data." } });
 
             } else if (results[0].is_logout == 1) {
                 res.status(400).send({ "error": { "message": "User was logout." } });
@@ -30,10 +30,11 @@ export default function checkUserIsAuthentic(req, res, next) {
                 // update the user's last login date
                 let sql = 'UPDATE user_signin_logs SET updated_at = ? WHERE user_id = ?';
                 let values = [new Date(), results[0].user_id];
-                
+
                 conn.execute(sql, values, (error) => {
                     if (error) {
-                        res.status(500).send({ "error": { "message": error.message } });
+                        res.status(500).send({ "error": { "message": error } });
+
                     } else {
                         req.body.userId = results[0].user_id;
                         next();
@@ -44,7 +45,7 @@ export default function checkUserIsAuthentic(req, res, next) {
         });
 
     } catch (error) {
-        res.status(500).send({ "error": { "message": error.message } });
+        res.status(500).send({ "error": { "message": error } });
         return;
     }
 }

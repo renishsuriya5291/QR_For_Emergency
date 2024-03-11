@@ -3,44 +3,59 @@ import connection from '../db.config.js';
 
 class FamilyGroupController {
 
-  index(req, res, next) { }
-
-  store(req, res, next) {
+  getAllGroup(req, res) {
     try {
+      const { userId } = req.body;
+
+      let sql = "SELECT family_group.id, family_group.name, family_group.group_created_by FROM family_group INNER JOIN user_to_group ON family_group.id = user_to_group.group_id WHERE user_to_group.user_id = ?";
+      let values = [userId];
+
       const conn = mysql.createConnection(connection);
 
-      let { name, user_id} = req.body;
+      conn.execute(sql, values, (error, rows) => {
+        if (error) {
+          res.status(500).send({ "error": { "message": error } });
+
+        } else {
+          res.status(200).json({ "data": rows });
+        }
+        conn.end();
+      });
+
+    } catch (error) {
+      res.status(500).send({ "error": { "message": error } });
+      return;
+    }
+  }
+
+  createOneGroup(req, res) {
+    try {
+      const { groupName, userId } = req.body;
 
       let sql = "INSERT family_group(name, group_created_by) VALUES(?, ?)";
-      let values = [name, user_id];
-      conn.execute(sql, values, (error, rows, fields) => {
-        if (error) {
-          res.status(500).send({ "error": { "message": error } });
-          return;
-        } else {
-          res.status(200).json({ "data": rows[0] });
-        }
-        conn.end();
-      });
+      let values = [groupName, userId];
 
-    } catch (error) {
-      res.status(500).send({ "error": { "message": error } });
-      return;
-    }
-  }
-
-  show(req, res, next) {
-    try {
       const conn = mysql.createConnection(connection);
 
-      let sql = "SELECT email, phone_no, full_name, photo FROM users WHERE uid = ?";
-      let values = [req.params.id];
       conn.execute(sql, values, (error, rows, fields) => {
         if (error) {
           res.status(500).send({ "error": { "message": error } });
-          return;
+
         } else {
-          res.status(200).json({ "data": rows[0] });
+
+          const groupId = rows.insertId;
+
+          let sql = "INSERT user_to_group(user_id, group_id) VALUES(?, ?)";
+          let values = [userId, groupId];
+
+          conn.execute(sql, values, (error) => {
+            if (error) {
+              res.status(500).send({ "error": { "message": error } });
+
+            } else {
+              res.status(200).json({ "data": { "message": "Family group created." } });
+            }
+          });
         }
         conn.end();
       });
@@ -51,44 +66,123 @@ class FamilyGroupController {
     }
   }
 
-  update(req, res, next) {
-    const conn = mysql.createConnection(connection);
+  getOneGroup(req, res) {
+    try {
+      const { groupId } = req.params;
 
-    const { phone_no, full_name, photo } = req.body;
+      let sql = "SELECT users.uid, users.email FROM family_group INNER JOIN user_to_group ON family_group.id = user_to_group.group_id INNER JOIN users ON user_to_group.user_id = users.id WHERE family_group.id = ?";
+      let values = [groupId];
 
-    let sql = "UPDATE users SET phone_no = ?, full_name = ?, photo = ?, updated_at = ? WHERE uid = ?"
-    let values = [phone_no, full_name, photo, req.params.id, new Date()];
+      const conn = mysql.createConnection(connection);
 
-    conn.execute(sql, values, (error, rows) => {
-      if (error) {
-        res.status(500).send({ "error": { "message": error } });
-        return;
-      } else {
-        res.status(200).json({ "data": rows });
-      }
-      conn.end();
-    });
+      conn.execute(sql, values, (error, rows) => {
+        if (error) {
+          res.status(500).send({ "error": { "message": error } });
 
+        } else {
+          res.status(200).json({ "data": rows });
+        }
+        conn.end();
+      });
+
+    } catch (error) {
+      res.status(500).send({ "error": { "message": error } });
+      return;
+    }
   }
 
-  destroy(req, res, next) {
-    const conn = mysql.createConnection(connection);
-    conn.addListener('error', (err) => {
-      res.json({ "Error": err });
-    });
+  updateGroup(req, res) {
+    try {
+      const { userId, action } = req.body;
+      const { groupId } = req.params;
 
-    const sql = "DELETE FROM users WHERE uid = ?"
-    const values = [req.params.id];
+      let sql = "SELECT count(*) AS row_count FROM family_group WHERE id = ? AND group_created_by = ?";
+      let values = [groupId, userId];
 
-    conn.execute(sql, values, (error, rows) => {
-      if (error) {
-        res.status(500).send({ "error": { "message": error } });
-        return;
-      } else {
-        res.status(200).json({ "data": rows });
-      }
-      conn.end();
-    });
+      const conn = mysql.createConnection(connection);
+
+      conn.execute(sql, values, (error, rows) => {
+        if (error) {
+          res.status(500).send({ "error": { "message": error } });
+
+        } else if (rows[0].row_count == 0) {
+          res.status(403).send({ "error": { "message": "You can't update group." } });
+
+        } else {
+          if (req.body.isInGroup && action == "Add") {
+            res.status(422).send({ "error": { "message": "User already in group." } });
+
+          } else if (!req.body.isInGroup && action == "Remove") {
+            res.status(404).send({ "error": { "message": "User not find in group." } });
+
+          } else {
+
+            let sql = "";
+            if (action == "Add") {
+              sql = "INSERT INTO user_to_group(user_id, group_id) VALUES(?, ?)";
+
+            } else if (action == "Remove") {
+              sql = "DELETE FROM user_to_group WHERE user_id = ? AND group_id = ?";
+
+            }
+            let values = [req.body.userId1, groupId];
+
+            conn.execute(sql, values, (error) => {
+              if (error) {
+                res.status(500).send({ "error": { "message": error } });
+
+              } else {
+                res.status(200).send({ "data": { "message": "Operation done." } });
+              }
+            });
+          }
+        }
+        conn.end();
+      });
+
+    } catch (error) {
+      res.status(500).send({ "error": { "message": error } });
+      return;
+    }
+  }
+
+  deleteGroup(req, res) {
+    try {
+      const { userId } = req.body;
+      const { groupId } = req.params;
+
+      let sql = "SELECT count(*) AS row_count FROM family_group WHERE id = ? AND group_created_by = ?";
+      let values = [groupId, userId];
+
+      const conn = mysql.createConnection(connection);
+
+      conn.execute(sql, values, (error, rows) => {
+        if (error) {
+          res.status(500).send({ "error": { "message": error } });
+
+        } else if (rows[0].row_count == 0) {
+          res.status(404).send({ "error": { "message": "Group not found." } });
+
+        } else {
+          let sql = "DELETE FROM family_group WHERE group_created_by = ? AND id = ?";
+          let values = [userId, groupId];
+
+          conn.execute(sql, values, (error) => {
+            if (error) {
+              res.status(500).send({ "error": { "message": error } });
+
+            } else {
+              res.status(200).send({ "data": { "message": "Group deleted." } });
+            }
+          });
+        }
+        conn.end();
+      });
+
+    } catch (error) {
+      res.status(500).send({ "error": { "message": error } });
+      return;
+    }
   }
 }
 

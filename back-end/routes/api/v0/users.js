@@ -1,16 +1,12 @@
 import express from 'express';
 import UserController from '../../../controllers/UserController.js';
+import validateUpdateUserRequest from '../../../middlewares/ValidateUpdateUserRequest.js';
 
 const router = express.Router();
 
-// router.route('/')
-//     .get(UserController.index)
-//     .post(UserController.store);
-
-router.route('/:id')
+router.route('/')
     .get(UserController.show)
-    .put(UserController.update)
-    .patch(UserController.update)
-    .delete(UserController.destroy);
+    .put([validateUpdateUserRequest], UserController.update)
+    .delete(UserController.destroy)
 
 export default router;

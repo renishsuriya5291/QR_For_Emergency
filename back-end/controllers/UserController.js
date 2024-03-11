@@ -3,22 +3,21 @@ import connection from '../db.config.js';
 
 class UserController {
 
-  index(req, res, next) { }
-
-  store(req, res, next) { }
-
-  show(req, res, next) {
+  show(req, res) {
     try {
-      const conn = mysql.createConnection(connection);
+      const { uid } = req.body;
 
       let sql = "SELECT email, phone_no, full_name, photo FROM users WHERE uid = ?";
-      let values = [req.params.id];
-      conn.execute(sql, values, (error, rows, fields) => {
+      let values = [uid];
+
+      const conn = mysql.createConnection(connection);
+
+      conn.execute(sql, values, (error, rows) => {
         if (error) {
           res.status(500).send({ "error": { "message": error } });
-          return;
+
         } else {
-          res.status(200).json({ "data": rows[0] });
+          res.status(200).json({ "data": rows });
         }
         conn.end();
       });
@@ -29,44 +28,55 @@ class UserController {
     }
   }
 
-  update(req, res, next) {
-    const conn = mysql.createConnection(connection);
+  update(req, res) {
+    try {
+      const { phoneNo, fullName, photo, uid } = req.body;
 
-    const { phone_no, full_name, photo } = req.body;
+      let sql = "UPDATE users SET phone_no = ?, full_name = ?, photo = ? WHERE uid = ?";
+      let values = [phoneNo, fullName, photo, uid];
 
-    let sql = "UPDATE users SET phone_no = ?, full_name = ?, photo = ?, updated_at = ? WHERE uid = ?"
-    let values = [phone_no, full_name, photo, req.params.id, new Date()];
+      const conn = mysql.createConnection(connection);
 
-    conn.execute(sql, values, (error, rows) => {
-      if (error) {
-        res.status(500).send({ "error": { "message": error } });
-        return;
-      } else {
-        res.status(200).json({ "data": rows });
-      }
-      conn.end();
-    });
+      conn.execute(sql, values, (error) => {
+        if (error) {
+          res.status(500).send({ "error": { "message": error } });
+
+        } else {
+          res.status(200).json({ "data": { "message": "Information updated." } });
+        }
+        conn.end();
+      });
+
+    } catch (error) {
+      res.status(500).send({ "error": { "message": error } });
+      return;
+    }
 
   }
 
-  destroy(req, res, next) {
-    const conn = mysql.createConnection(connection);
-    conn.addListener('error', (err) => {
-      res.json({ "Error": err });
-    });
+  destroy(req, res) {
+    try {
+      const { uid } = req.body;
 
-    const sql = "DELETE FROM users WHERE uid = ?"
-    const values = [req.params.id];
+      let sql = "DELETE FROM users WHERE uid = ?";
+      let values = [uid];
 
-    conn.execute(sql, values, (error, rows) => {
-      if (error) {
-        res.status(500).send({ "error": { "message": error } });
-        return;
-      } else {
-        res.status(200).json({ "data": rows });
-      }
-      conn.end();
-    });
+      const conn = mysql.createConnection(connection);
+
+      conn.execute(sql, values, (error) => {
+        if (error) {
+          res.status(500).send({ "error": { "message": error } });
+
+        } else {
+          res.status(200).json({ "data": { "message": "Bye." } });
+        }
+        conn.end();
+      });
+
+    } catch (error) {
+      res.status(500).send({ "error": { "message": error } });
+      return;
+    }
   }
 }
 

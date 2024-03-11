@@ -14,7 +14,7 @@ export default function generateToken(req, res) {
 
         const payload = { data: encrypted };
         const secret = process.env.SECRET_KEY_JWT;
-        const expiresIn = '10h'; // token will expire in 1 hour
+        const expiresIn = '1h'; // token will expire in 1 hour
 
         const token = jwt.sign(payload, secret, { expiresIn });
 

@@ -7,7 +7,7 @@ class AuthController {
     signup(req, res) {
         try {
             const { email, uid, fullName } = req.body;
-            
+
             let sql = 'INSERT INTO users (email, uid, full_name) VALUES (?, ?, ?)';
             let values = [email, uid, fullName];
 
@@ -33,9 +33,9 @@ class AuthController {
         try {
             // Generate token and put in response header.
             generateToken(req, res);
-            
+
             const { userId, ipAddress, userAgent, sesId } = req.body;
-            
+
             let sql = 'INSERT INTO user_signin_logs (user_id, ip_address, user_agent, session_id) VALUES (?, ?, ?, ?)';
             let values = [userId, ipAddress, userAgent, sesId];
 
@@ -59,12 +59,12 @@ class AuthController {
     signout(req, res) {
         try {
             const { userId } = req.body;
-            
+
             let sql = 'UPDATE user_signin_logs SET is_logout = 1, updated_at = ? WHERE user_id = ? AND is_logout = 0';
             let values = [new Date(), userId];
 
             const conn = mysql.createConnection(connection);
-            
+
             conn.execute(sql, values, (error) => {
                 if (error) {
                     res.status(500).send({ "error": { "message": error.message } });

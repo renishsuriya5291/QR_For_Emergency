@@ -8,7 +8,7 @@ export default function checkEmailExists(req, res, next) {
         // First, check if the email already exists
         let sql = 'SELECT count(*) AS row_count FROM users WHERE email = ?';
         let values = [email];
-        
+
         const conn = mysql.createConnection(connection);
 
         conn.execute(sql, values, (error, results) => {

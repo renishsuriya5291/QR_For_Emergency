@@ -13,7 +13,7 @@ export default function verifyToken(req, res, next) {
             jwt.verify(token, process.env.SECRET_KEY_JWT, (error, result) => {
                 if (error) {
                     if (error.name === 'TokenExpiredError') {
-                        
+
                         req.body.data = jwt.decode(token).data;
 
                         const payload = { data: req.body.data };

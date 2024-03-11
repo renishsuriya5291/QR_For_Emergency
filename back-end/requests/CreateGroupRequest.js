@@ -6,9 +6,9 @@ const schema = Joi.object({
         'string.min': 'Group name must be at least 3 characters long.',
         'string.max': 'Group name cannot exceed 30 characters.'
     }),
-    user_id: Joi.string().required().messages({
+    userId: Joi.required().messages({
         'any.required': 'User id is required.'
-    }),
-});
+    })
+}).unknown(true);
 
 export default schema;
