@@ -1,1 +1,25 @@
-<router-outlet></router-outlet>
+<nav class="flex justify-between p-4 bg-white text-white shadow-lg my-2 pb-6">
+  <div>
+    <a
+      routerLink="/"
+      class="bg-secondary text-white font-bold text-xl p-3 transform skew-x-[-10]"
+    >
+     Quick SOS
+    </a>
+  </div>
+  <div class="mx-3">
+    <a class="mx-3" routerLink="/login" class="text-secondary hover:bg-lighthover p-3 font-semibold"
+      >Sign In</a
+    >
+    <a
+      class="mx-3"
+      routerLink="/register"
+      class="text-white bg-primary hover:bg-primaryhover ml-4 p-3 font-medium btn-cross"
+      >Register Now</a
+    >
+  </div>
+</nav>
+
+<div class="p-4">
+  <router-outlet> </router-outlet>
+</div>

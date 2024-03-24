@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+.btn-cross{
+    transform: skew(-12deg);
+    box-shadow: none;
+}
+
