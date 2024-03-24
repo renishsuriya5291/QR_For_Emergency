@@ -12,6 +12,7 @@ module.exports = {
         secondary: '#0e3639', // replace with your secondary color
         primaryhover: '#921108', // replace with your secondary color
         lighthover: '#bfc9ca', // replace with your secondary color
+        secondaryhover: '#2d494e', // replace with your secondary color
       },
       height: {
         '38': '38px',
