@@ -1,10 +1,10 @@
-import express from 'express';
-import UserController from '../../../controllers/UserController.js';
-import validateUpdateUserRequest from '../../../middlewares/ValidateUpdateUserRequest.js';
+import express from "express";
+import UserController from "../../../controllers/UserController.js";
+import validateUpdateUserRequest from "../../../middlewares/ValidateUpdateUserRequest.js";
 
 const router = express.Router();
 
-router.route('/')
+router.route("/")
     .get(UserController.show)
     .put([validateUpdateUserRequest], UserController.update)
     .delete(UserController.destroy)
