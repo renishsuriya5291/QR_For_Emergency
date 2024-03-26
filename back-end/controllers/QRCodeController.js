@@ -134,6 +134,36 @@ class QRCodeController {
             return;
         }
     }
+
+    show(req, res) {
+        try {
+            const { QRCodeHash } = req.params;
+
+            let sql = "SELECT data, user_id FROM qr_code INNER JOIN users ON qr_code.user_id = users.id WHERE hash = ?";
+            let values = [QRCodeHash];
+
+            const conn = mysql.createConnection(connection);
+
+            conn.execute(sql, values, (error, rows) => {
+                if (error) {
+                    res.status(500).send({ "error": { "message": error.message } });
+                } else {
+                    if (rows.length == 0) {
+                        res.status(404).json({ "error": { "message": "QRCode not found." } })
+                    } else {
+                        decryptQRCodeData(rows[0].user_id, rows[0], (decryptedData) => {
+                            res.status(200).json({ "data": decryptedData.data });
+                        });
+                    }
+                }
+                conn.end();
+            });
+
+        } catch (error) {
+            res.status(500).send({ "error": { "message": error } });
+            return;
+        }
+    }
 }
 
 export default new QRCodeController();
