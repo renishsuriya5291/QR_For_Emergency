@@ -1,1 +1,40 @@
-<router-outlet></router-outlet>
+<nav class="flex bg-white text-white shadow-lg justify-around">
+  <div class="flex items-center">
+    <a
+      routerLink="/"
+      class="text-white font-bold text-xl transform skew-x-[-10]"
+    >
+      <img src="../assets/logo.png" class="img_logo py-2" alt="" />
+    </a>
+    <ul>
+      <li>
+        <a
+          class="mx-3 py-7  text-secondary hover:bg-lighthover px-3 font-semibold"
+          routerLink="/"
+          >QR Codes</a
+        >
+        <a
+          class="mx-3 py-7 text-secondary hover:bg-lighthover px-3 font-semibold"
+          routerLink="/"
+          >Groups</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="px-2 justify-center flex items-center cross_div">
+    <a
+      class="mx-2 text-secondary hover:bg-lighthover p-2 font-semibold"
+      routerLink="/login"
+      >Sign In</a
+    >
+    <a
+      class="mx-2 text-white bg-secondary hover:bg-secondaryhover not-italic text-base font-bold ml-4 p-2"
+      routerLink="/register"
+      >Register Now</a
+    >
+  </div>
+</nav>
+
+<div class="p-4">
+  <router-outlet> </router-outlet>
+</div>
