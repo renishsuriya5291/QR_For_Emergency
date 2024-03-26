@@ -1,17 +1,18 @@
 import crypto from "crypto";
 import "dotenv/config";
+import mysql from "mysql2";
+import connection from "../db.config.js";
 
-export default function encryptQRCodeData(req, res) {
-
+export default function encryptQRCodeData(req, res, next) {
     try {
         const { userId } = req.body;
 
-        let sql = "SELECT email FROM user WHERE id = ?";
+        let sql = "SELECT email FROM users WHERE id = ?";
         let values = [userId];
 
         const conn = mysql.createConnection(connection);
 
-        conn.execute(sql, values, (error) => {
+        conn.execute(sql, values, (error, result) => {
             if (error) {
                 res.status(500).send({ "error": { "message": error.message } });
             } else {
@@ -23,6 +24,7 @@ export default function encryptQRCodeData(req, res) {
                 encryptedQRCodeData += cipher.final("hex");
 
                 req.body.QRCodeData = encryptedQRCodeData;
+                next();
             }
             conn.end();
         });

@@ -1,34 +1,34 @@
 import crypto from "crypto";
 import "dotenv/config";
+import mysql from "mysql2";
+import connection from "../db.config.js";
 
-export default function decryptQRCodeData(req, res) {
-
+export default function decryptQRCodeData(userId, rowData, callback) {
     try {
-        const { userId } = req.body;
-
-        let sql = "SELECT email FROM user WHERE id = ?";
+        let decryptedQRCodeData;
+        
+        let sql = "SELECT email FROM users WHERE id = ?";
         let values = [userId];
 
         const conn = mysql.createConnection(connection);
 
-        conn.execute(sql, values, (error) => {
+        conn.execute(sql, values, (error, result) => {
             if (error) {
-                res.status(500).send({ "error": { "message": error.message } });
+                console.log(error);
             } else {
                 const email = result[0].email;
 
                 // Decrypt encryptedData using.
                 const decipher = crypto.createDecipheriv(process.env.ENCRYPTION_ALGORITHM, crypto.createHash("sha256").update(email).digest(), Buffer.alloc(16, 0));
-                let decryptedQRCodeData = decipher.update(QRCodeData, "hex", "utf8");
+                decryptedQRCodeData = decipher.update(rowData.data, "hex", "utf8");
                 decryptedQRCodeData += decipher.final("utf8");
-
-                req.body.QRCodeData = JSON.parse(decryptedQRCodeData);
             }
             conn.end();
+            rowData.data = JSON.parse(decryptedQRCodeData);
+            callback(rowData);
         });
 
     } catch (error) {
-        res.status(500).send({ "error": { "message": error } });
-        return;
+        console.log(error);
     }
 }
