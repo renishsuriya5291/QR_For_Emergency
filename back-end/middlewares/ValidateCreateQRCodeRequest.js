@@ -1,9 +1,9 @@
-import createGroupRequest from "../requests/CreateGroupRequest.js";
+import createQRCodeRequest from "../requests/CreateQRCodeRequest.js";
 
 export default function validateCreateGroupRequest(req, res, next) {
 
     try {
-        const { error } = createGroupRequest.validate(req.body);
+        const { error } = createQRCodeRequest.validate(req.body);
         if (error) {
             let errorMessage = error.details[0].message;
             res.status(422).send({ "error": { "message": errorMessage } });

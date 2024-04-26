@@ -1,9 +1,8 @@
-import signoutRequestSchema from '../requests/SignoutRequest.js';
+import signoutRequestSchema from "../requests/SignoutRequest.js";
 
 export default function validateSignoutRequest(req, res, next) {
 
     try {
-        // Validate the request body.
         const { error } = signoutRequestSchema.validate(req.body);
 
         if (error) {
@@ -14,7 +13,7 @@ export default function validateSignoutRequest(req, res, next) {
         }
 
     } catch (error) {
-        res.status(500).send({ "error": { "message": error.message } });
+        res.status(500).send({ "error": { "message": error } });
         return;
     }
 }

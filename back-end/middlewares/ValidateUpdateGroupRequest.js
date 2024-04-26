@@ -1,9 +1,8 @@
-import updateGroupRequest from '../requests/UpdateGroupRequest.js';
+import updateGroupRequest from "../requests/UpdateGroupRequest.js";
 
 export default function validateUpdateGroupRequest(req, res, next) {
 
     try {
-        // Validate the request body.
         const { error } = updateGroupRequest.validate(req.body);
         if (error) {
             let errorMessage = error.details[0].message;
@@ -13,7 +12,7 @@ export default function validateUpdateGroupRequest(req, res, next) {
         }
 
     } catch (error) {
-        res.status(500).send({ "error": { "message": error.message } });
+        res.status(500).send({ "error": { "message": error } });
         return;
     }
 }
