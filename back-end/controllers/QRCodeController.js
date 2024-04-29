@@ -43,7 +43,7 @@ class QRCodeController {
                 if (error) {
                     res.status(500).send({ "error": { "message": error.message } });
                 } else {
-                    res.status(200).json({ "data": { "message": "QRCode generated." } });
+                    res.status(200).json({ "data": { "message": "QRCode generated.", "Authorization": req.headers.authorization } });
                 }
                 conn.end();
             });

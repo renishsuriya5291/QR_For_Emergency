@@ -3,6 +3,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import "dotenv/config";
+import cors from "cors";
 
 import indexRouter from "./routes/index.js";
 import apiV0 from "./routes/api/v0/v0.js";
@@ -13,6 +14,7 @@ export const app = express();
 app.set("views", "views");
 app.set("view engine", "jade");
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +42,6 @@ app.use(function (err, req, res, next) {
 
 // Stat the server.
 const PORT = process.env.PORT || 65535;
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`App listening on port ${PORT}.`)
 });

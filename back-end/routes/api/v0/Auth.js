@@ -7,10 +7,11 @@ import checkUserExists from "../../../middlewares/CheckUserExists.js";
 import verifyToken from "../../../middlewares/VerifyToken.js";
 import checkUserIsAuthentic from "../../../middlewares/CheckUserIsAuthentic.js";
 import validateSignoutRequest from "../../../middlewares/ValidateSignoutRequest.js";
+import checkUIDExists from "../../../middlewares/CheckUIDExists.js";
 
 const router = express.Router();
 
-router.route("/signup").post([validateSignupRequest, checkEmailExists], AuthController.signup);
+router.route("/signup").post([validateSignupRequest, checkEmailExists, checkUIDExists], AuthController.signup);
 router.route("/signin").post([validateSigninRequest, checkUserExists], AuthController.signin);
 router.route("/signout").post([verifyToken, checkUserIsAuthentic, validateSignoutRequest], AuthController.signout);
 
