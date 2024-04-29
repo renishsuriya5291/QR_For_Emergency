@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="images/logo.png" style="height: 41px;" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link font-semibold {{ Request::is('/') ? 'active' : '' }}" href="/">QR Codes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-semibold {{ Request::is('groups') ? 'active' : '' }}" href="/groups">Groups</a>
+                </li>
+            </ul>
+            @php
+                $loggedin = 0;
+            @endphp
+            @if ($loggedin == true)
+                <div class="ml-auto d-flex">
+                    <div class="text-center position-relative">
+                        <div class="profile-container mx-auto d-flex justify-content-between align-items-center" onclick="toggleDropdown()">
+                            <div>
+                                <i class="fas fa-user-circle profile-icon"></i>
+                            </div>
+                            <div class="text-left">
+                                <span class="profile-name">Renidh</span>
+                                <i class="fas fa-chevron-down down-arrow"></i>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu position-absolute" id="dropdownMenu" style="display: none; right: 0;">
+                           <a class="nav-link font-semibold" href="#">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="ml-auto d-flex">
+                    <div class="btn-group">
+                        <a href="/signin" class="btn btn-primary mr-2 font-semibold">Sign In</a>
+                        <a href="/signup" class="btn btn-secondary not-italic text-base font-bold ml-1 p-2">Register now</a>
+                    </div>
+                </div>
+            @endif
+           
+        </div>
+    </div>
+</nav>
+

@@ -1,0 +1,40 @@
+
+.navbar {
+    background-color: #e1dddb !important;
+}
+
+.navbar-brand {
+    color: #00262b !important;
+}
+
+.nav-link {
+    color: #d23228 !important;
+}
+
+.nav-link.active {
+    border-bottom: 3px solid #d23228 !important;
+}
+
+.navbar-toggler-icon {
+    background-color: #d23228 !important;
+}
+
+.btn-primary {
+    background-color: #00262b !important;
+    border-color: #00262b !important;
+}
+
+.btn-primary:hover {
+    background-color: #001b1f !important;
+    border-color: #001b1f !important;
+}
+
+.btn-secondary {
+    background-color: #d23228 !important;
+    border-color: #d23228 !important;
+}
+
+.btn-secondary:hover {
+    background-color: #b82a20 !important;
+    border-color: #b82a20 !important;
+}

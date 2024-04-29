@@ -1,0 +1,211 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+
+.navbar {
+    background-color: white !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0px !important;
+}
+
+.navbar-brand {
+    color: #00262b !important;
+}
+
+.nav-link {
+    color: #00262b !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+
+.nav-link.active {
+    border-bottom: 3px solid #00262b !important;
+}
+
+.navbar-toggler-icon {
+    background-color: #00262b !important;
+}
+
+.btn-primary {
+    background-color: #00262b !important;
+    border-color: #00262b !important;
+}
+
+.btn-primary:hover {
+    background-color: #001b1f !important;
+    border-color: #001b1f !important;
+}
+
+.btn-outline-primary {
+    color: #00262b  !important;
+    border-color: #00262b !important; 
+}
+.btn-outline-primary:hover {
+    color: white !important;
+    background-color: #d23228 !important;
+    border-color: #00262b !important;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0 !important;
+    border-color: #f0f0f0 !important;
+    color: black !important;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    background-color: #f0f0f0 !important;
+    border-color: #f0f0f0 !important;
+    color: black !important;
+}
+
+.text{
+    color: #00262b;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+.full-height {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.font-semibold{
+    font-weight: 500;
+}
+
+.max-width-container{
+    max-width: 400px; /* Adjust as needed */
+    width: 100%;
+}
+
+.w-50per{
+    width: 50%;
+}
+
+
+.profile-container {
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.profile-icon {
+    margin-right: 6px;
+    font-size: 19px; /* Adjust icon size */
+    font-weight: 500 !important;
+}
+
+.profile-name {
+    font-weight: 500;
+    font-size: medium;
+    margin-right:4px;
+}
+
+.down-arrow {
+    font-size: 10px;
+    color: #333; /* Adjust color as needed */
+}
+
+.btn{
+    border-radius: 0% !important;
+}
+
+.bigbtn{
+    padding: 13px !important;
+}
+
+.heading_div{
+    height: 100px !important;
+}
+
+.head_text{
+    align-items: flex-end;
+    display: flex;
+}
+
+
+.qr_box{
+    background: #f0f0f0;
+    font-weight: 500;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.qr_field_detail{
+    background: #f0f0f0;
+    font-weight: 500;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.add_btn_div{
+    align-items: end;
+    display: flex;
+}
+
+.add_btn{
+    width: 100%;
+}
+
+
+.tab a {
+    display: block;
+    color: #343a40; /* Tab text color */
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-bottom: 3px solid transparent; /* Bottom border for tab */
+    transition: border-bottom 0.3s; /* Smooth transition for border */
+}
+
+.tab a:hover {
+    background-color: #e9ecef; /* Background color on hover */
+}
+
+.tab a.active {
+    border-bottom-color: #00262b; /* Primary color for active tab */
+}
+
+.tabs-container {
+    background-color: #f0f0f0; /* Grey background color */
+    border: 1px solid #f0f0f0; /* Border color */
+    overflow: hidden; /* Hide overflow content */
+}
+
+.tab_name:hover{
+    text-decoration: none;
+    background-color: #f0f0f0 !important;
+    color: black;
+}
+
+.tab {
+    width: 100%;
+    float: left;
+}
+
+.tag_div{
+    width: 100%;
+}
+
+.qr_field_detail {
+    display: flex;
+    align-items: center;
+}
+
+.bin-container {
+    margin-left: auto; /* Pushes the bin icon to the end */
+}
