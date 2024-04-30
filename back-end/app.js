@@ -7,6 +7,7 @@ import cors from "cors";
 
 import indexRouter from "./routes/index.js";
 import apiV0 from "./routes/api/v0/v0.js";
+import QRCodeController from "./controllers/QRCodeController.js";
 
 export const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static("public"));
 
 app.use("/", indexRouter);
 app.use("/api/v0", apiV0);
+app.use("/qr-code/:QRCodeHash", QRCodeController.show);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
