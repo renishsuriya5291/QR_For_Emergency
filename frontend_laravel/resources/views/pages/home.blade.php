@@ -63,7 +63,7 @@
             };
 
             function changeContent(element, uid) {
-                localStorage.setItem('qrid',uid);
+                localStorage.setItem('qrid', uid);
                 var rightHeading = document.getElementById('rightHeading');
                 const authorizationToken = document.getElementById('Authorization').dataset.token;
                 const userId = document.getElementById('uid').dataset.token;
@@ -233,33 +233,33 @@
 
             function deleteQR(element) {
                 userAsk = confirm("Are you sure you want to delete this QR?");
-                if(userAsk){
-                    
-                const uid = localStorage.getItem("qrid")
+                if (userAsk) {
 
-                const authorizationToken = document.getElementById('Authorization').dataset.token;
-                const userId = document.getElementById('uid').dataset.token;
+                    const uid = localStorage.getItem("qrid")
 
-                // Call the API
-                fetch(`http://127.0.0.1:65535/api/v0/user/${userId}/qr-code/${uid}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': authorizationToken
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Handle the JSON response
-                        console.log('Response:', data);
-                        window.location.href = "/";
+                    const authorizationToken = document.getElementById('Authorization').dataset.token;
+                    const userId = document.getElementById('uid').dataset.token;
 
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        // Handle errors here
-                    });
-                    
+                    // Call the API
+                    fetch(`http://127.0.0.1:65535/api/v0/user/${userId}/qr-code/${uid}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': authorizationToken
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the JSON response
+                            console.log('Response:', data);
+                            window.location.href = "/";
+
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // Handle errors here
+                        });
+
                 }
 
             }

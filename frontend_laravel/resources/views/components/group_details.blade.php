@@ -1,4 +1,5 @@
 @php
+        $id = $_GET['id'] ?? 'QR Code Detail';
         $groupName = $_GET['groupName'] ?? 'QR Code Detail';
 @endphp
 
@@ -12,31 +13,5 @@
 </div>
 
 <div class="container mt-5" id="qrDetails">
-    <div class="container qr_field_detail my-3">
-        <div class="text-container">
-            <span class="text">Emergency Number : </span>
-            <span class="text">+91 12365 09876</span>
-        </div>
-        <div class="bin-container">
-            <i class="fas fa-trash-alt bin-icon"></i>
-        </div>
-    </div>
-    <div class="container qr_field_detail my-3">
-        <div class="text-container">
-            <span class="text">Emergency Number : </span>
-            <span class="text">+91 12365 09876</span>
-        </div>
-        <div class="bin-container">
-            <i class="fas fa-trash-alt bin-icon"></i>
-        </div>
-    </div>
-    <div class="container qr_field_detail my-3">
-        <div class="text-container">
-            <span class="text">Emergency Number : </span>
-            <span class="text">+91 12365 09876</span>
-        </div>
-        <div class="bin-container">
-            <i class="fas fa-trash-alt bin-icon"></i>
-        </div>
-    </div>
+    {{-- show Members Here  --}}
 </div>
