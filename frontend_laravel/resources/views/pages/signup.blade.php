@@ -14,21 +14,21 @@
                     </span>
                 </h2>
             </div>
-            <form>
+            <form id="signupForm">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control" id="password">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control" id="confirm_password">
                 </div>
                 <div class="container d-flex justify-content-center">
-                    <button type="submit" class="col-md-3 btn btn-primary btn-block">Submit</button>
+                    <button type="button" id="submitForm" class="col-md-3 btn btn-primary btn-block">Submit</button>
                 </div>
             </form>
         </div>
@@ -38,12 +38,13 @@
     <div class="container mt-2">
         <div class="row justify-content-between">
             <div class="col">
-                <button class="btn btn-outline-primary btn-block">Signup with Google</button>
+                <a href="/auth/google" class="btn btn-outline-primary btn-block">Signup with Google</a>
             </div>
             <div class="col">
-                <button class="btn btn-outline-primary btn-block">Signup with Facebook</button>
+                <a href="/auth/facebook" class="btn btn-outline-primary btn-block">Signup with Facebook</a>
             </div>
         </div>
     </div>
+    
 </div>
 @endsection

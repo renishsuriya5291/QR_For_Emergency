@@ -11,6 +11,10 @@ background color
 color: #e1dddb;
 
 
+add kreli field key value pair ma fill nathi thatu
+update button pr click kre pchi localstorage ma update thavu joia and update api call 
+
+
 
 Home backup:
 @extends('welcome')

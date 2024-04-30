@@ -1,6 +1,6 @@
 <!-- create_qr_form.blade.php -->
 
-<form>
+<div>
     <div class="form-group">
         <label for="nameInput">Name</label>
         <input type="text" class="form-control" id="nameInput" placeholder="Enter your name">
@@ -22,9 +22,6 @@
         <!-- Field divs will be added dynamically here -->
     </div>
     <!-- Other fields -->
-    <button type="submit" class="btn btn-primary">Create QR</button>
-</form>
+    <button type="submit" onclick="create_qr_submit()" class="btn btn-primary">Create QR</button>
+</div>
 
-<script>
-    
-</script>

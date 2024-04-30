@@ -34,7 +34,7 @@
     <div class="container mt-2">
         <div class="row justify-content-between">
             <div class="col">
-                <button class="btn btn-outline-primary btn-block">Signin with Google</button>
+                <a href="/auth/google" class="btn btn-outline-primary btn-block">Signin with Google</a>
             </div>
             <div class="col">
                 <button class="btn btn-outline-primary btn-block">Signin with Facebook</button>

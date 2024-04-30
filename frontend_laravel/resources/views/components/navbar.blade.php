@@ -14,7 +14,13 @@
                 </li>
             </ul>
             @php
-                $loggedin = 0;
+                $auth = Session::get('Authorization');
+                $name = Session::get('name');
+                if(isset($auth)){
+                    $loggedin = 1;
+                }else{
+                    $loggedin = 0;
+                }
             @endphp
             @if ($loggedin == true)
                 <div class="ml-auto d-flex">
@@ -24,12 +30,14 @@
                                 <i class="fas fa-user-circle profile-icon"></i>
                             </div>
                             <div class="text-left">
-                                <span class="profile-name">Renidh</span>
+                                <span class="profile-name">
+                                    {{$name}}
+                                </span>
                                 <i class="fas fa-chevron-down down-arrow"></i>
                             </div>
                         </div>
                         <div class="dropdown-menu position-absolute" id="dropdownMenu" style="display: none; right: 0;">
-                           <a class="nav-link font-semibold" href="#">Logout</a>
+                           <a class="nav-link font-semibold" href="/signout">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -45,4 +53,6 @@
         </div>
     </div>
 </nav>
+
+
 

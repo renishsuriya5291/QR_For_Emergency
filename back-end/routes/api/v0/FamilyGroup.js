@@ -1,8 +1,8 @@
 import express from "express";
 import FamilyGroupController from "../../../controllers/FamilyGroupController.js";
 import validateCreateGroupRequest from "../../../middlewares/ValidateCreateGroupRequest.js";
-import validateUpdateGroupRequest from "../../../middlewares/validateUpdateGroupRequest.js";
-import validateDeleteGroupRequest from "../../../middlewares/validateDeleteGroupRequest.js";
+import validateUpdateGroupRequest from "../../../middlewares/ValidateUpdateGroupRequest.js";
+import validateDeleteGroupRequest from "../../../middlewares/ValidateDeleteGroupRequest.js";
 import checkUserInGroup from "../../../middlewares/CheckUserInGroup.js";
 
 const router = express.Router();
