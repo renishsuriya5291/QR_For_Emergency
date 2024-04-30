@@ -12,39 +12,51 @@
                 <button class="bigbtn btn btn-primary font-semibold" onclick="createGroup()">Create Group</button>
             </div>
         </div>
-
+        @php
+            print_r($data);
+        @endphp
         <div class="mt-2 row">
             <div class="col-md-3">
                 <!-- Left container with width 30% -->
                 <div class="tabs-container d-flex">
                     <div class="tab d-flex">
                         <div class="tag_div">
-                            <a href="#" class="tab_name active" onclick="filterQR('all', this)">All</a> <!-- Active tab -->
+                            <a href="#" class="tab_name active" onclick="filterQR('all', this)">All</a>
+                            <!-- Active tab -->
                         </div>
                         <div class="tag_div">
                             <a href="#" class="tab_name" onclick="filterQR('myGroups', this)">My Groups</a>
                         </div>
                     </div>
                 </div>
-                <div class="container qr_box my-3" data-group="myQR" onclick="changeContent(this, 'My QR')">
+                {{-- <div class="container qr_box my-3" data-group="group" onclick="changeContent(this, 'My QR')">
                     <span class="text">My QR</span>
                 </div>
-                <div class="container qr_box my-3" data-group="fatherQR" onclick="changeContent(this, 'Father QR')">
+                <div class="container qr_box my-3" data-group="group" onclick="changeContent(this, 'Father QR')">
                     <span class="text">Father QR</span>
                 </div>
-                <div class="container qr_box my-3" data-group="motherQR" onclick="changeContent(this, 'Mother QR')">
+                <div class="container qr_box my-3" data-group="group" onclick="changeContent(this, 'Mother QR')">
                     <span class="text">Mother QR</span>
                 </div>
-                <div class="container qr_box my-3" data-group="brotherQR" onclick="changeContent(this, 'Brother QR')">
+                <div class="container qr_box my-3" data-group="group" onclick="changeContent(this, 'Brother QR')">
                     <span class="text">Brother QR</span>
                 </div>
-                <div class="container qr_box my-3" data-group="grandFatherQR" onclick="changeContent(this, 'GrandFather QR')">
+                <div class="container qr_box my-3" data-group="myGroup"
+                    onclick="changeContent(this, 'GrandFather QR')">
                     <span class="text">GrandFather QR</span>
                 </div>
-                <div class="container qr_box my-3" data-group="grandMotherQR" onclick="changeContent(this, 'GrandMother QR')">
+                <div class="container qr_box my-3" data-group="myGroup"
+                    onclick="changeContent(this, 'GrandMother QR')">
                     <span class="text">GrandMother QR</span>
-                </div>
-            </div>    
+                </div> --}}
+                @foreach ($data['data'] as $item)
+                    <div class="container qr_box my-3" data-group="group" onclick="changeContent(this, '{{ $item['name'] }}')">
+                        <span class="text">{{ $item['name'] }}</span>
+                    </div>
+                @endforeach
+
+               
+            </div>
             <div class="col-md-9" id="rightSideContainer">
                 <div class="container d-flex justify-content-between">
                     <div class="head_text">
@@ -56,7 +68,7 @@
 
 
         <script>
-           function filterQR(group, element) {
+            function filterQR(group, element) {
                 var tabs = document.querySelectorAll('.tab_name');
                 tabs.forEach(function(tab) {
                     tab.classList.remove('active');
@@ -69,7 +81,7 @@
                         qrBox.style.display = 'block';
                     } else if (group === 'myGroups') {
                         var groupAttribute = qrBox.getAttribute('data-group');
-                        if (groupAttribute === 'grandFatherQR' || groupAttribute === 'grandMotherQR') {
+                        if (groupAttribute === 'myGroup') {
                             qrBox.style.display = 'block';
                         } else {
                             qrBox.style.display = 'none';
@@ -107,7 +119,7 @@
                 var rightContainer = document.getElementById('rightSideContainer');
                 // Clear previous content
                 rightContainer.innerHTML = '';
-                
+
                 // Load form HTML from create_qr_form.blade.php using fetch API
                 fetch('/create_group_form')
                     .then(response => response.text())
@@ -119,11 +131,11 @@
                     });
             }
 
-            function add_member_form(){
+            function add_member_form() {
                 var rightContainer = document.getElementById('rightSideContainer');
                 // Clear previous content
                 rightContainer.innerHTML = '';
-                
+
                 // Load form HTML from create_qr_form.blade.php using fetch API
                 fetch('/add_member_form')
                     .then(response => response.text())
@@ -133,6 +145,31 @@
                     .catch(error => {
                         console.error('Error fetching form HTML:', error);
                     });
+            }
+
+            function submitGroup() {
+                var name = document.getElementById('nameInput').value;
+                var authorization = localStorage.getItem('Authorization');
+                var uid = '<?php echo Session::get('uid'); ?>';
+
+
+                fetch(`http://127.0.0.1:65535/api/v0/user/${uid}/family-group`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': authorization
+                    },
+                    body: JSON.stringify({
+                        groupName: name
+                    })
+                }).then((response) => {
+                    return response.json();
+                }).then(data =>
+                    // reload the page 
+                    window.location.reload()
+                ).catch((error) => {
+                    console.error('Error:', error);
+                });
             }
         </script>
     </div>
