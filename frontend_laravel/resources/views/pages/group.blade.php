@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 @foreach ($data['data'] as $item)
-                    <div class="container qr_box my-3" data-group="{{$item['group_created_by'] == Session::get('uid') ? "myGroup": "group"}}" onclick="changeContent(this, '{{ $item['id'] }}', '{{ $item['name'] }}')">
+                    <div class="container qr_box my-3" data-group="{{$item['uid'] == Session::get('uid') ? "myGroup": "group"}}" onclick="changeContent(this, '{{ $item['id'] }}', '{{ $item['name'] }}', '{{ $item['uid'] }}')">
                         <span class="text">{{ $item['name'] }}</span>
                     </div>
                 @endforeach
@@ -66,7 +66,7 @@
             }
 
 
-            function changeContent(element, id, groupName) {
+            function changeContent(element, id, groupName,uuid) {
                 // Load HTML content of '/group_details_page' into the right-side container
                 var rightSideContainer = document.getElementById('rightSideContainer');
                 var url = '/group_details?id=' + encodeURIComponent(id) + '&groupName=' + encodeURIComponent(groupName); // Include the groupName in the URL
@@ -112,18 +112,19 @@
                                 var textC = document.createElement('div');
                                 textC.classList.add('text-container');
 
-                                // Create field element
-                                var fieldElement = document.createElement('span');
-                                fieldElement.classList.add('text');
-                                fieldElement.innerText ="Email :";
 
+                                // hiding the add member btn and bin icon 
+                                // console.log(uuid, localStorage.getItem('uid'));
+                              
+                               
+
+                           
                                 // Create value element
                                 var valueElement = document.createElement('span');
                                 valueElement.classList.add('text');
                                 valueElement.innerText = " " + item['email'];
 
                                 // Append field and value elements to container
-                                textC.appendChild(fieldElement);
                                 textC.appendChild(valueElement);
 
                                 container.appendChild(textC)
@@ -143,7 +144,18 @@
                                 container.appendChild(binIcon)
                                 
                             });
+                            if(uuid != localStorage.getItem('uid')){
+                                    document.getElementById('addmemberbtn').style.display = 'none';
+                                    document.getElementById('deletebtn').style.display = 'none';
+                                    // Select all elements with the class name "bin-container"
+                                    var elements = document.getElementsByClassName('bin-container');
 
+                                    // Loop through each element and hide it
+                                    for(var i = 0; i < elements.length; i++) {
+                                        elements[i].style.display = 'none';
+                                    }
+                                }
+                                
                             // Select all elements with class name "bin-icon"
                             var binIcons = document.querySelectorAll('.bin-icon');
 
@@ -206,6 +218,31 @@
                     .catch(error => {
                         console.error('Error fetching form HTML:', error);
                     });
+            }
+
+            function delete_group(id){
+                const authorization = localStorage.getItem('Authorization');
+                const uid  = localStorage.getItem('uid');
+                userInput = confirm("Are you sure you want to delete this group ?")
+                if(userInput){
+                    fetch('{{ env('SERVER_PATH') }}'+`/api/v0/user/${uid}/family-group/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': authorization
+                        },
+                        body: JSON.stringify({
+                            groupName: name
+                        })
+                    }).then((response) => {
+                        return response.json();
+                    }).then((data) =>{
+                        // reload the page 
+                        window.location.reload()
+                    }).catch((error) => {
+                        console.error('Error:', error);
+                    });
+                }
             }
 
             function add_member_form() {

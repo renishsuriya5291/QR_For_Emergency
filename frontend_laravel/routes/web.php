@@ -7,6 +7,8 @@ use App\Http\Controllers\SignoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\QRController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +50,7 @@ Route::get('/group_details', function () {
 });
 
 Route::get('/signout', [SignoutController::class, 'signout']);
+
 Route::post('/update-session', [SessionController::class, 'update']);
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google-auth');

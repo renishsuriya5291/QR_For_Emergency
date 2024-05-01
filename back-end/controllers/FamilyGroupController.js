@@ -7,7 +7,7 @@ class FamilyGroupController {
         try {
             const { userId } = req.body;
 
-            let sql = "SELECT family_group.id, family_group.name, family_group.group_created_by FROM family_group INNER JOIN user_to_group ON family_group.id = user_to_group.group_id WHERE user_to_group.user_id = ?";
+            let sql = "SELECT family_group.id, family_group.name, family_group.group_created_by, users.uid FROM family_group INNER JOIN user_to_group ON family_group.id = user_to_group.group_id INNER JOIN users ON family_group.group_created_by = users.id WHERE user_to_group.user_id = ?";
             let values = [userId];
 
             const conn = mysql.createConnection(connection);

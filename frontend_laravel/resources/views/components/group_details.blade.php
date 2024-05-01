@@ -7,8 +7,13 @@
     <div class="head_text">
         <h5 id="rightHeading">{{$groupName}}</h5>
     </div>
-    <div class="btns" id="exportBtnContainer">
-        <button class="btn btn-primary font-semibold" onclick="add_member_form()">Add Member</button>
+    <div class="buttons d-flex">
+        <div class="btns px-2" id="addmemberbtn">
+            <button class="btn btn-primary font-semibold" onclick="add_member_form()">Add Member</button>
+        </div>
+        <div class="btns" id="deletebtn">
+            <button class="btn btn-primary font-semibold" onclick="delete_group('{{ $id }}')">Delete Group</button>
+        </div>
     </div>
 </div>
 

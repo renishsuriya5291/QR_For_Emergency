@@ -25,12 +25,14 @@
                     <div class="head_text">
                         <h5 id="rightHeading">QR Code Detail</h5>
                     </div>
+                    
+            
                     <div class="buttons d-flex ">
                         <div class="btns px-2" id="updateBtnContainer" style="display: none;">
                             <button onclick="updateQR(this)" class="btn btn-primary font-semibold">Update QR</button>
                         </div>
                         <div class="btns px-2" id="exportBtnContainer" style="display: none;">
-                            <button class="btn btn-primary font-semibold">Export QR</button>
+                            <button class="btn btn-primary font-semibold" onclick="exportQR(this)">Export QR</button>
                         </div>
                         <div class="btns" id="deleteBtnContainer" style="display: none;">
                             <button onclick="deleteQR(this)" class="btn btn-primary font-semibold">Delete QR</button>
@@ -44,8 +46,14 @@
                         <span class="text" id="value"></span>
                     </div>
                 </div>
+                <div id="qrCodeContainer" style="text-align: center;">
+            
+                </div>
             </div>
         </div>
+
+        
+
         <script>
             localStorage.setItem('Authorization', "{{ Session::get('Authorization') }}");
             localStorage.setItem('uid', "{{ Session::get('uid') }}");
@@ -94,6 +102,7 @@
                     })
                     .then(response => response.json())
                     .then(data => {
+                        localStorage.setItem("qrhash", data.data.hash);
                         // Handle the JSON response
                         // Show the second container
                         document.getElementById('qrDetails').style.display = 'block';
@@ -461,6 +470,60 @@
                     console.error('Error:', error);
                 }
 
+            }
+
+            function exportQR(){
+                const QRHash = localStorage.getItem("qrhash");
+                const QRName = document.getElementById('rightHeading').innerText;
+                const url = '127.0.0.1:8000/qr-code/' + QRHash;
+
+                
+                var apiUrl = "http://192.168.118.113:5000/generate_qr";
+  
+                // Request payload
+                var payload = JSON.stringify({ "url": url});
+                
+                // Send POST request
+                fetch(apiUrl, {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json"
+                    },
+                    body: payload
+                })
+                .then(response => {
+                    // Convert response to blob
+                    return response.blob();
+                })
+                .then(blob => {
+                    // Create URL for the blob
+                    var imgUrl = URL.createObjectURL(blob);
+                    
+                    // Create image element
+                    var img = document.createElement("img");
+                    img.src = imgUrl;
+                    
+                    // Append image to container
+                    document.getElementById("qrCodeContainer").appendChild(img);
+                    
+                    // Create download link
+                    var a = document.createElement("a");
+                    a.href = imgUrl;
+                    a.download = "qr_code.png";
+                    a.textContent = "Download QR Code";
+                    a.style.textDecoration = 'none'
+                    a.style.color = "white"
+                    a.style.backgroundColor = "#00262b"
+                    a.style.padding = "10px"    
+
+                    
+                    // Append download link
+                    document.getElementById("qrCodeContainer").appendChild(a);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+                
             }
         </script>
 
