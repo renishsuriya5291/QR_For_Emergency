@@ -22,12 +22,18 @@
                     $loggedin = 0;
                 }
             @endphp
+
             @if ($loggedin == true)
                 <div class="ml-auto d-flex">
                     <div class="text-center position-relative">
                         <div class="profile-container mx-auto d-flex justify-content-between align-items-center" onclick="toggleDropdown()">
                             <div>
-                                <i class="fas fa-user-circle profile-icon"></i>
+                                @if (!isset($user['photo']))
+                                    <i id="profile_icon" class="fas fa-user-circle profile-icon"></i>
+                                @else
+                                <img class="profile-icon" id="profile-icon" src="http://127.0.0.1:8000/images/{{ $user['photo'] }}" style="width: 25px !important; border-radius: 50%; height: 27px; max-width: 100%;" alt="">
+                                @endif
+                                {{-- <i class="fas fa-user-circle profile-icon"></i> --}}
                             </div>
                             <div class="text-left">
                                 <span class="profile-name">

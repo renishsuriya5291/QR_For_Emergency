@@ -29,9 +29,19 @@ class HomeController extends Controller
                 $headers = $response->headers();
                 Session::put('Authorization',$headers['Authorization'][0]);
                 // dd($headers);
+
+                $response = Http::withHeaders([
+                    'Authorization' =>  $token,
+                    'Content-Type' => 'application/json',
+                ])->get(env('SERVER_PATH').'/api/v0/user/'. $uid);
+                
+
+                $responseJson = $response->json();
+                $user = $responseJson['data'][0];
+
              
                 // Pass data to the view
-                return view('pages.home', ['data' => $data]);
+                return view('pages.home', ['data' => $data,'user'=>$user]);
             } else {
                 return redirect("/signin");
 

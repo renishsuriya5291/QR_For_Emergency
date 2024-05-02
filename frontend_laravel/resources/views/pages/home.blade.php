@@ -51,6 +51,27 @@
                 </div>
             </div>
         </div>
+        <!-- Button to trigger modal -->
+        <button id="openModalBtn" style="display: none;" type="button" data-toggle="modal" data-target="#exampleModal">
+            Open Modal
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Scan QR For Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                Modal Content
+                </div>
+            </div>
+            </div>
+        </div>
 
         
 
@@ -471,13 +492,19 @@
 
             }
 
+            function openModalWithBlur() {
+                $('#exampleModal').modal('show');
+                $('.modal-backdrop').addClass('show');
+            }
+
             function exportQR(){
                 const QRHash = localStorage.getItem("qrhash");
                 const QRName = document.getElementById('rightHeading').innerText;
-                const url = '127.0.0.1:8000/qr-code/' + QRHash;
-
+                const url = '192.168.118.42:8000/' + QRHash;
+                console.log(url);
                 
-                var apiUrl = "http://192.168.118.113:5000/generate_qr";
+                
+                var apiUrl = "http://192.168.118.86:5000/generate_qr";
   
                 // Request payload
                 var payload = JSON.stringify({ "url": url});
@@ -497,27 +524,33 @@
                 .then(blob => {
                     // Create URL for the blob
                     var imgUrl = URL.createObjectURL(blob);
-                    
+
                     // Create image element
                     var img = document.createElement("img");
                     img.src = imgUrl;
-                    
-                    // Append image to container
-                    document.getElementById("qrCodeContainer").appendChild(img);
-                    
                     // Create download link
                     var a = document.createElement("a");
                     a.href = imgUrl;
                     a.download = "qr_code.png";
                     a.textContent = "Download QR Code";
-                    a.style.textDecoration = 'none'
-                    a.style.color = "white"
-                    a.style.backgroundColor = "#00262b"
-                    a.style.padding = "10px"    
+                    a.style.textDecoration = 'none';
+                    a.style.color = "white";
+                    a.style.backgroundColor = "#00262b";
+                    a.style.padding = "10px";
+                    a.style.display = "flex";
+                    a.style.textAlign = "center";
+                    a.style.justifyContent = "center";
 
-                    
-                    // Append download link
-                    document.getElementById("qrCodeContainer").appendChild(a);
+                    // Append content to modal body
+                    var modalBody = document.querySelector("#exampleModal .modal-body");
+                    modalBody.innerHTML = ''; // Clear previous content
+                    modalBody.appendChild(img);
+                    modalBody.appendChild(a);
+
+                    // Open modal with blur effect
+                    openModalWithBlur();
+
+
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);

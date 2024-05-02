@@ -211,3 +211,6 @@ body {
 }
 
 
+.modal-backdrop.show {
+    filter: blur(4px);
+  }
