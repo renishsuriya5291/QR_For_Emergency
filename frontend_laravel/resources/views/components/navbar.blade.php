@@ -37,6 +37,7 @@
                             </div>
                         </div>
                         <div class="dropdown-menu position-absolute" id="dropdownMenu" style="display: none; right: 0;">
+                           <a class="nav-link font-semibold" href="/profile">Profile</a>
                            <a class="nav-link font-semibold" href="/signout">Logout</a>
                         </div>
                     </div>

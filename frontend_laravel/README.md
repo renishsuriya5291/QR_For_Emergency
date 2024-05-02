@@ -11,10 +11,10 @@ background color
 color: #e1dddb;
 
 
-add kreli field key value pair ma fill nathi thatu
-update button pr click kre pchi localstorage ma update thavu joia and update api call 
-
-
+profile update api using js
+qr code scan page for all user
+show qr in modal with download button
+option: show circular in 
 
 Home backup:
 @extends('welcome')
