@@ -1,10 +1,7 @@
-# Project Title
+# Quick SOS
 
 Introducing Our Latest Web Application for Emergency Preparedness
 
-## Table of Contents
-
-- Quick SOS
 
 ## About
 
