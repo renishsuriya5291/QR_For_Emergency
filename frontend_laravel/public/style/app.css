@@ -209,3 +209,8 @@ body {
 .bin-container {
     margin-left: auto; /* Pushes the bin icon to the end */
 }
+
+
+.modal-backdrop.show {
+    filter: blur(4px);
+  }

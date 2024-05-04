@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\FacebookAuthController;
@@ -50,6 +51,9 @@ Route::get('/group_details', function () {
 });
 
 Route::get('/signout', [SignoutController::class, 'signout']);
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
+Route::get('/{id}', [QRController::class, 'show']);
 
 Route::post('/update-session', [SessionController::class, 'update']);
 

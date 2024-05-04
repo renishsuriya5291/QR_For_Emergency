@@ -14,7 +14,7 @@
                     </span>
                 </h2>
             </div>
-            <form>
+            {{-- <form>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -26,20 +26,21 @@
                 <div class="container d-flex justify-content-center">
                     <button type="submit" class="col-md-3 btn btn-primary btn-block">Submit</button>
                 </div>
-            </form>
+            </form> --}}
+            <!-- Another section with buttons -->
+            <div class="container mt-5">
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <a href="/auth/google" class="btn btn-outline-primary btn-block">Signin with Google</a>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-primary btn-block">Signin with Facebook</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Another section with buttons -->
-    <div class="container mt-2">
-        <div class="row justify-content-between">
-            <div class="col">
-                <a href="/auth/google" class="btn btn-outline-primary btn-block">Signin with Google</a>
-            </div>
-            <div class="col">
-                <button class="btn btn-outline-primary btn-block">Signin with Facebook</button>
-            </div>
-        </div>
-    </div>
+    
 </div>
 @endsection
