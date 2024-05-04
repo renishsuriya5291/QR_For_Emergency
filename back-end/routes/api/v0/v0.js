@@ -18,6 +18,7 @@ router.use("/auth", auth);
 router.use("/user/:uid", [verifyToken, checkUserIsAuthentic, checkUIDIsCorrect], user);
 router.use("/user/:uid/family-group", [verifyToken, checkUserIsAuthentic, checkUIDIsCorrect], familyGroup);
 router.use("/user/:uid/qr-code", [verifyToken, checkUserIsAuthentic, checkUIDIsCorrect], QRCode);
+router.post("/qr-code/send-messages/:QRCodeHash", QRCodeController.getContactDetails);
 router.use("/qr-code/:QRCodeHash", QRCodeController.show);
 
 export default router;

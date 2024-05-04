@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 const schema = Joi.object({
-    QRCodeName: Joi.string().required().min(3).max(30).messages({
+    QRCodeName: Joi.string().required().min(3).max(300).messages({
         "any.required": "QRCode name is required.",
         "string.min": "QRCode name must be at least 3 characters long.",
         "string.max": "QRCode name cannot exceed 30 characters."

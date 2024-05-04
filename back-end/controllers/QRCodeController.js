@@ -164,6 +164,35 @@ class QRCodeController {
             return;
         }
     }
+
+    getContactDetails(req, res) {
+        try {
+            const { QRCodeHash } = req.params;
+
+            let sql = "SELECT email, phone_no FROM users WHERE id IN(SELECT user_id FROM user_to_group WHERE group_id IN(SELECT group_id FROM user_to_group WHERE user_id IN(SELECT user_id FROM qr_code WHERE hash = ?)))";
+            let values = [QRCodeHash];
+
+            const conn = mysql.createConnection(connection);
+
+            conn.execute(sql, values, (error, rows) => {
+                if (error) {
+                    res.status(500).send({ "error": { "message": error.message } });
+                } else {
+                    if (rows.length == 0) {
+                        res.status(404).json({ "error": { "message": "QRCode not found." } })
+                    } else {
+                        
+                        res.status(200).json({ "data": rows });
+                    }
+                }
+                conn.end();
+            });
+
+        } catch (error) {
+            res.status(500).send({ "error": { "message": error } });
+            return;
+        }
+    }
 }
 
 export default new QRCodeController();
