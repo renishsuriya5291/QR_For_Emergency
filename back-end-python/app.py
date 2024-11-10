@@ -8,7 +8,8 @@ import time
 
 
 app = Flask(__name__)
-CORS(app)
+# Allow all origins with CORS
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def generate_qr_with_logo(url, logo_path):
     qr = pyqrcode.create(url)

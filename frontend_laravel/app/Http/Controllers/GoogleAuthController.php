@@ -14,18 +14,15 @@ class GoogleAuthController extends Controller
     }
 
     public function handleGoogleCallback(Request $request){
-        try {
-            $google_user = Socialite::driver('google')->user();
-
+        // try {
+            $google_user = Socialite::driver(driver: 'google')->user();
             $data = [
                 'email' => $google_user->email,
                 'uid' => $google_user->id,
                 'fullName' => $google_user->name
             ];
-            
             // Make the API request
             $response = Http::post(env("SERVER_PATH").'/api/v0/auth/signup', $data);
-           
             // Check if the request was successful
             $responsedata = $response->json();
             $ipAddress = $request->ip();
@@ -39,7 +36,7 @@ class GoogleAuthController extends Controller
                     'userAgent' => $userAgent,
                     'uid' => $google_user->id
                 ];
-                  
+                dd($signindata);
                 $responseSignIn = Http::post(env("SERVER_PATH").'/api/v0/auth/signin', $signindata);
                 $responsedata1 = $responseSignIn->json();
 
@@ -61,6 +58,7 @@ class GoogleAuthController extends Controller
                     ];
                     
                     $responseSignIn = Http::post(env("SERVER_PATH").'/api/v0/auth/signin', $signindata);
+
                     $responsedata1 = $responseSignIn->json();
                     // Fetch response headers
                     $headers = $responseSignIn->headers();
@@ -72,9 +70,7 @@ class GoogleAuthController extends Controller
                 }
                 // Handle other errors
             }
-        } catch(\Exception $e) {
-            dd("Something went wrong..." . $e->getMessage());
-        }
+        
         
     }
 

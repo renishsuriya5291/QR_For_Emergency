@@ -500,11 +500,11 @@
             function exportQR(){
                 const QRHash = localStorage.getItem("qrhash");
                 const QRName = document.getElementById('rightHeading').innerText;
-                const url = '192.168.118.42:8000/' + QRHash;
+                const url = '127.0.0.1:8000/' + QRHash;
                 console.log(url);
                 
                 
-                var apiUrl = "http://192.168.118.86:5000/generate_qr";
+                var apiUrl = "http://127.0.0.1:5000/generate_qr";
   
                 // Request payload
                 var payload = JSON.stringify({ "url": url});
