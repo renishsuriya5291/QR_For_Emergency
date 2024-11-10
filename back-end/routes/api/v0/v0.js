@@ -22,3 +22,4 @@ router.post("/qr-code/send-messages/:QRCodeHash", QRCodeController.getContactDet
 router.use("/qr-code/:QRCodeHash", QRCodeController.show);
 
 export default router;
+
