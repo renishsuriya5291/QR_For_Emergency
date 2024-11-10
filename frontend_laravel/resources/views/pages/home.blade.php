@@ -449,7 +449,7 @@
 
 
                 try {
-                    const response = await fetch(`http://127.0.0.1:65535/api/v0/user/${uid}/qr-code/${qrid}`, {
+                    const response = await fetch('{{ env('SERVER_PATH') }}' +`/api/v0/user/${uid}/qr-code/${qrid}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -504,7 +504,7 @@
                 console.log(url);
                 
                 
-                var apiUrl = "http://127.0.0.1:5000/generate_qr";
+                var apiUrl = '{{ env('SERVER_PATH') }}' + "/generate_qr";
   
                 // Request payload
                 var payload = JSON.stringify({ "url": url});
