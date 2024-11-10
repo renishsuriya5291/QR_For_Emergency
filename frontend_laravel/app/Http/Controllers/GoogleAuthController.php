@@ -36,7 +36,6 @@ class GoogleAuthController extends Controller
                     'userAgent' => $userAgent,
                     'uid' => $google_user->id
                 ];
-                dd($signindata);
                 $responseSignIn = Http::post(env("SERVER_PATH").'/api/v0/auth/signin', $signindata);
                 $responsedata1 = $responseSignIn->json();
 
