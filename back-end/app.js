@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import "dotenv/config";
 import cors from "cors";
+import mysql from "mysql2";
+
 
 import indexRouter from "./routes/index.js";
 import apiV0 from "./routes/api/v0/v0.js";
