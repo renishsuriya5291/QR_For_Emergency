@@ -1,5 +1,5 @@
 import express from "express";
-import user from "./Users.js";
+import user from "./users.js";
 import auth from "./Auth.js";
 import verifyToken from "../../../middlewares/VerifyToken.js";
 import checkUserIsAuthentic from "../../../middlewares/CheckUserIsAuthentic.js";
