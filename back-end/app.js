@@ -26,28 +26,6 @@ app.use(express.static("public"));
 app.use("/", indexRouter);
 app.use("/api/v0", apiV0);
 
-app.get("/test-db-connection", async (req, res) => {
-  const connection = await mysql.createConnection({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-  });
-
-  try {
-    // Test the connection
-    await connection.ping();
-    res.status(200).json({ message: "Database connection successful!" });
-  } catch (error) {
-    console.error("Database connection failed:", error);
-    res.status(500).json({ message: "Database connection failed", error: error.message });
-  } finally {
-    // Close the connection
-    await connection.end();
-  }
-});
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

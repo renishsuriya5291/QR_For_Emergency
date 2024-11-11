@@ -1,7 +1,7 @@
 import mysql from "mysql2";
 import connection from "../db.config.js";
 import decryptQRCodeData from "../services/DecryptQRCodeData.js";
-
+import QRCode from "qrcode";
 class QRCodeController {
 
     getAllQRCode(req, res) {
@@ -181,7 +181,7 @@ class QRCodeController {
                     if (rows.length == 0) {
                         res.status(404).json({ "error": { "message": "QRCode not found." } })
                     } else {
-                        
+
                         res.status(200).json({ "data": rows });
                     }
                 }
@@ -191,6 +191,25 @@ class QRCodeController {
         } catch (error) {
             res.status(500).send({ "error": { "message": error } });
             return;
+        }
+    }
+
+    async getQRCode(req, res) {
+        const { url } = req.body;
+
+        if (!url) {
+            return res.status(400).send('Please provide a url query parameter.');
+        }
+        try {
+            // Generate the QR code as a PNG buffer
+            const qrCodeBuffer = await QRCode.toBuffer(url);
+
+            // Set response headers to indicate an image response
+            res.setHeader('Content-Type', 'image/png');
+            res.send(qrCodeBuffer);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error generating QR code.');
         }
     }
 }

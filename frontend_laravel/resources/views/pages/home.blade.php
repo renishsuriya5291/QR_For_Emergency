@@ -500,11 +500,11 @@
             function exportQR(){
                 const QRHash = localStorage.getItem("qrhash");
                 const QRName = document.getElementById('rightHeading').innerText;
-                const url = '127.0.0.1:8000/' + QRHash;
+                const url = 'https://quick-sos.onrender.com/' + QRHash;
                 console.log(url);
                 
                 
-                var apiUrl = '{{ env('SERVER_PATH') }}' + "/generate_qr";
+                var apiUrl = '{{ env('SERVER_PATH') }}' + "/api/v0/generate_qr";
   
                 // Request payload
                 var payload = JSON.stringify({ "url": url});
