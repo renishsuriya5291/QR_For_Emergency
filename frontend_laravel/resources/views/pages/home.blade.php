@@ -500,7 +500,7 @@
             function exportQR(){
                 const QRHash = localStorage.getItem("qrhash");
                 const QRName = document.getElementById('rightHeading').innerText;
-                const url = 'https://quick-sos.onrender.com/' + QRHash;
+                const url = 'https://quick-sos.rickmate.in/' + QRHash;
                 console.log(url);
                 
                 

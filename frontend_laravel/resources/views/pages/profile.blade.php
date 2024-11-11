@@ -60,7 +60,7 @@
                                 var photo = document.getElementById("photo").files[0]; // Get the file object
                                 var uid = localStorage.getItem('uid');
                                 var authorizationToken = localStorage.getItem('Authorization');
-                                var apiUrl = 'http://127.0.0.1:8000/update-profile'
+                                var apiUrl = 'https://quick-sos.onrender.com/update-profile'
 
                                 var formData = new FormData(); // Create FormData object
                                 formData.append('fullName', fullName);
