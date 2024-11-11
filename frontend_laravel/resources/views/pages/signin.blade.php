@@ -33,9 +33,6 @@
                     <div class="col">
                         <a href="/auth/google" class="btn btn-outline-primary btn-block">Signin with Google</a>
                     </div>
-                    <div class="col">
-                        <button class="btn btn-outline-primary btn-block">Signin with Facebook</button>
-                    </div>
                 </div>
             </div>
         </div>

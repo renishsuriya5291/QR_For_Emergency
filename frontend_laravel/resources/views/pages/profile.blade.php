@@ -16,7 +16,7 @@
                             @if ($user['photo'] == null)
                                 <i id="profile_icon" class="fas fa-user-circle profile-icon"></i>
                             @else
-                                <img src="http://127.0.0.1:8000/images/{{ $user['photo'] }}" style="width: 100px !important;" alt="">
+                                <img src="https://quick-sos.rickmate.in/public/images/{{ $user['photo'] }}" style="width: 100px !important;" alt="">
                             @endif
                         </div>
                         <div class="text-center mt-3">
@@ -60,7 +60,7 @@
                                 var photo = document.getElementById("photo").files[0]; // Get the file object
                                 var uid = localStorage.getItem('uid');
                                 var authorizationToken = localStorage.getItem('Authorization');
-                                var apiUrl = 'https://quick-sos.onrender.com/update-profile'
+                                var apiUrl = 'https://quick-sos.rickmate.in/update-profile'
 
                                 var formData = new FormData(); // Create FormData object
                                 formData.append('fullName', fullName);
@@ -80,10 +80,10 @@
                                         console.log(data);
                                         if (data && data.url) { // Check if data and data.url are available
                                             var imgElement = document.createElement('img');
-                                            imgElement.src = 'http://127.0.0.1:8000/images/' + data.url; 
+                                            imgElement.src = 'https://quick-sos.rickmate.in/public/images/' + data.url; 
                                             imgElement.alt = 'Alternate Text'; 
                                             imgElement.width = '100';
-                                            document.getElementById("profile-icon").src = 'http://127.0.0.1:8000/images/' + data.url; 
+                                            document.getElementById("profile-icon").src = 'https://quick-sos.rickmate.in/public/images/' + data.url; 
                                             var imgContainer = document.getElementById('imgContainer');
                                             // Clear previously appended elements in imgContainer
                                             imgContainer.innerHTML = '';

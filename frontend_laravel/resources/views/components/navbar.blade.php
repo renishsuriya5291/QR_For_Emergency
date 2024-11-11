@@ -31,7 +31,7 @@
                                 @if (!isset($user['photo']))
                                     <i id="profile_icon" class="fas fa-user-circle profile-icon"></i>
                                 @else
-                                <img class="profile-icon" id="profile-icon" src="http://127.0.0.1:8000/images/{{ $user['photo'] }}" style="width: 25px !important; border-radius: 50%; height: 27px; max-width: 100%;" alt="">
+                                <img class="profile-icon" id="profile-icon" src="https://quick-sos.rickmate.in/public/images/{{ $user['photo'] }}" style="width: 25px !important; border-radius: 50%; height: 27px; max-width: 100%;" alt="">
                                 @endif
                                 {{-- <i class="fas fa-user-circle profile-icon"></i> --}}
                             </div>
