@@ -114,7 +114,7 @@
                 document.getElementById('updateBtnContainer').style.display = 'block';
 
                 // Call the API
-                fetch(`http://127.0.0.1:65535/api/v0/user/${userId}/qr-code/${uid}`, {
+                fetch(`https://quick-sos.onrender.com/api/v0/user/${userId}/qr-code/${uid}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -271,7 +271,7 @@
                     const userId = document.getElementById('uid').dataset.token;
 
                     // Call the API
-                    fetch(`http://127.0.0.1:65535/api/v0/user/${userId}/qr-code/${uid}`, {
+                    fetch(`https://quick-sos.onrender.com/api/v0/user/${userId}/qr-code/${uid}`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -388,7 +388,7 @@
                 console.log(uid);
 
                 try {
-                    const response = await fetch(`http://127.0.0.1:65535/api/v0/user/${uid}/qr-code`, {
+                    const response = await fetch(`https://quick-sos.onrender.com/api/v0/user/${uid}/qr-code`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

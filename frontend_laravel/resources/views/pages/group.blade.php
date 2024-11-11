@@ -88,7 +88,7 @@
                         });
                         const userId = localStorage.getItem('uid');
                         const authorizationToken = localStorage.getItem('Authorization');
-                        fetch(`http://127.0.0.1:65535/api/v0/user/${userId}/family-group/${id}`, {
+                        fetch(`https://quick-sos.onrender.com/api/v0/user/${userId}/family-group/${id}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -169,7 +169,7 @@
                                     if(userInput){
                                         console.log(email);
                                         
-                                        fetch(`http://127.0.0.1:65535/api/v0/user/${userId}/family-group/${id}`, {
+                                        fetch(`https://quick-sos.onrender.com/api/v0/user/${userId}/family-group/${id}`, {
                                             method: 'PUT',
                                             headers: {
                                                 'Content-Type': 'application/json',
@@ -267,7 +267,7 @@
                 var uid = '<?php echo Session::get('uid'); ?>';
 
 
-                fetch(`http://127.0.0.1:65535/api/v0/user/${uid}/family-group`, {
+                fetch(`https://quick-sos.onrender.com/api/v0/user/${uid}/family-group`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -292,7 +292,7 @@
                 var uid = '<?php echo Session::get('uid'); ?>';
                 var groupId = localStorage.getItem('group_id');
 
-                fetch(`http://127.0.0.1:65535/api/v0/user/${uid}/family-group/${groupId}`, {
+                fetch(`https://quick-sos.onrender.com/api/v0/user/${uid}/family-group/${groupId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
